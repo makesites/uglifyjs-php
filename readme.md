@@ -2,6 +2,9 @@
 
 Using UglifyJS as a service for JavaScript minification in PHP
 
+Note that this class is abstructing the requests to a remote service run by an [UglifyJS-service](https://github.com/marijnh/UglifyJS-service)
+
+
 ## Usage
 
 ```
