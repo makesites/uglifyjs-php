@@ -16,6 +16,8 @@ class UglifyJS {
 	var $_debug = true;
 	var $_cache_dir = "";
 	var $_code_url_prefix = "";
+	var $_compiler = "http://marijnhaverbeke.nl:80/uglifyjs";
+
 
 	function UglifyJS() { }
 
@@ -33,6 +35,11 @@ class UglifyJS {
 	 */
 	function cacheDir($dir) {
 		$this->_cache_dir = $dir;
+		return $this;
+	}
+
+	function compiler( $url ) {
+		$this->compiler = $url;
 		return $this;
 	}
 
@@ -246,9 +253,10 @@ class UglifyJS {
 	function _makeRequest() {
 		$data = $this->_getParams();
 		$referer = @$_SERVER["HTTP_REFERER"] or "";
-		$host = "marijnhaverbeke.nl";
-		$port = 80;
-		$path = "/uglifyjs";
+		$compiler = parse_url( $this->_compiler );
+		$host = $compiler['host'] or "marijnhaverbeke.nl";
+		$port = $compiler['port'] or 80;
+		$path = $compiler['path'] or "/uglifyjs";
 
 		$fp = fsockopen($host, $port) or die("Unable to open socket");;
 
