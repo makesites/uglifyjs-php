@@ -39,7 +39,7 @@ class UglifyJS {
 	}
 
 	function compiler( $url ) {
-		$this->compiler = $url;
+		$this->_compiler = $url;
 		return $this;
 	}
 
