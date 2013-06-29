@@ -13,6 +13,27 @@ $compiler->add("js/my-app.js")
 		->write();
 ```
 
+## API
+
+These are the main methods to execute:
+
+### cacheDir( $path )
+
+Setting the temp dir for the cached files.
+
+### compiler( $url )
+
+Setting the compiler location as a full url (including port) . Defaults to ```http://marijnhaverbeke.nl:80/uglifyjs```
+
+### add( $script )
+
+Add a script in the queue to be compressed.
+
+### write( $output );
+
+Parsing queue and compressing files. Optionally outputting the result if ```$output=true``` (default: false)
+
+
 ## Credits
 
 Created by Makis Tracend ( [@tracend](http://github.com/tracend) )
