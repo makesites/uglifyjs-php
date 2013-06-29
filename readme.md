@@ -4,7 +4,14 @@ Using UglifyJS as a service for JavaScript minification in PHP
 
 ## Usage
 
+```
+$compiler = new UglifyJS();
 
+$compiler->add("js/my-app.js")
+		->add("js/popup.js")
+		->cacheDir("/tmp/js-cache/")
+		->write();
+```
 
 ## Credits
 
