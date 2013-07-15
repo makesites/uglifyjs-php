@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP class for JavaScript minification  using UglifyJS as a service.
- * https://github.com/tracend/uglifyjs-php
+ * https://github.com/makesites/uglifyjs-php
  *
  * Created by Makis Tracend (@tracend)
  * Distributed through [Makesites.org](http://makesites.org/)
