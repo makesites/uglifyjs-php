@@ -16,8 +16,11 @@ class UglifyJS {
 	var $_debug = true;
 	var $_cache_dir = "";
 	var $_code_url_prefix = "";
-	var $_compiler = "http://marijnhaverbeke.nl:80/uglifyjs";
-
+	var $_compiler = array(
+		"host" => "marijnhaverbeke.nl",
+		"port" => "80",
+		"path" => "/uglifyjs"
+	);
 
 	function UglifyJS() { }
 
@@ -38,11 +41,23 @@ class UglifyJS {
 		return $this;
 	}
 
-	function compiler( $url ) {
-		$this->_compiler = $url;
-		return $this;
+	function compiler( $string ) {
+		// get the previous compiler
+		$compiler = $this->_compiler;
+		$url = parse_url( $string );
+		// gather vars
+		if( array_key_exists("host", $url) ) $compiler['host'] = $url['host'];
+		if( array_key_exists("port", $url) ) $compiler['port'] = $url['port'];
+		if( array_key_exists("path", $url) ) $compiler['path'] = $url['path'];
+		// save back the compiler
+		$this->_compiler = $compiler;
+		return $compiler;
 	}
 
+	function setFile( $name=false ) {
+		if($name) $this->_file = $name;
+		return $this;
+	}
 	/**
 	 * Sets the URL prefix to use with the UglifyJS service's code_url
 	 * parameter.
@@ -200,7 +215,7 @@ class UglifyJS {
 	}
 
 	function _getCacheFileName() {
-		return $this->_cache_dir . $this->_getHash() . ".js";
+		return ( empty($this->_file) ) ? $this->_cache_dir . $this->_getHash() . ".js" : $this->_cache_dir . $this->_file. ".js";
 	}
 
 	function _getHash() {
@@ -253,15 +268,13 @@ class UglifyJS {
 	function _makeRequest() {
 		$data = $this->_getParams();
 		$referer = @$_SERVER["HTTP_REFERER"] or "";
-		$compiler = parse_url( $this->_compiler );
-		$host = $compiler['host'] or "marijnhaverbeke.nl";
-		$port = $compiler['port'] or 80;
-		$path = $compiler['path'] or "/uglifyjs";
+		// variables
+		extract($this->_compiler);
 
 		$fp = fsockopen($host, $port) or die("Unable to open socket");;
 
 		if ($fp) {
-			fputs($fp, "POST $path/compile HTTP/1.1\r\n");
+			fputs($fp, "POST $path HTTP/1.1\r\n");
 			fputs($fp, "Host: $host\r\n");
 			fputs($fp, "Referer: $referer\r\n");
 			fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
