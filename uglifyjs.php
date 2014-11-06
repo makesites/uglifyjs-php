@@ -271,7 +271,10 @@ class UglifyJS {
 		// variables
 		extract($this->_compiler);
 
-		$fp = fsockopen($host, $port) or die("Unable to open socket");;
+		$fp = fsockopen($host, $port);
+		if (!$fp) {
+			throw new Exception("Unable to open socket");
+		}
 
 		if ($fp) {
 			fputs($fp, "POST $path HTTP/1.1\r\n");
