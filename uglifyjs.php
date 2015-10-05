@@ -186,6 +186,13 @@ class UglifyJS {
 		}
 	}
 
+	// removes source files (usually after compilation)
+	function clear(){
+		foreach ($this->_srcs as $i => $src) {
+			unlink($src);
+			unset($this->_srcs[$i]);
+		}
+	}
 	// ----- Privates -----
 
 	function _isRecompileNeeded($cache_file) {
