@@ -267,7 +267,8 @@ class UglifyJS {
 
 	function _makeRequest() {
 		$data = $this->_getParams();
-		$referer = @$_SERVER["HTTP_REFERER"] or "";
+		//$referer = @$_SERVER["HTTP_REFERER"] or "";
+		$referer = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 		// variables
 		extract($this->_compiler);
 
