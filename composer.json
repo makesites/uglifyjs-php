@@ -1,6 +1,6 @@
 {
 	"name": "makesites/uglifyjs-php",
-	"version": "0.2.0",
+	"version": "0.5.0",
 	"type": "library",
 	"description": "Using UglifyJS as a service for JavaScript minification in PHP",
 	"keywords": ["uglifyjs","minify", "saas"],
