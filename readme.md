@@ -7,7 +7,7 @@ Note that this class is abstructing the requests to a remote service run by an [
 
 ## Usage
 
-```
+```php
 $compiler = new UglifyJS();
 
 $compiler->add("js/my-app.js")
